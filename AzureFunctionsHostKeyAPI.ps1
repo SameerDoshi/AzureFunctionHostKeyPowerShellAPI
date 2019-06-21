@@ -7,7 +7,7 @@ Function Get-Function-Jwt {
 
     $resourceType = "Microsoft.Web/sites/config"
     $resourceName = "$functionAppName/publishingcredentials"
-    $publishingCredentials = Invoke-RestMethod -ResourceGroupName $resourceGroupName -ResourceType $resourceType -ResourceName $resourceName -Action list -ApiVersion 2015-08-01 -Force
+    $publishingCredentials = Invoke-AzResourceAction -ResourceGroupName $resourceGroupName -ResourceType $resourceType -ResourceName $resourceName -Action list -ApiVersion 2015-08-01 -Force
     
     $accessToken = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $publishingCredentials.Properties.PublishingUserName, $publishingCredentials.Properties.PublishingPassword)))
     
